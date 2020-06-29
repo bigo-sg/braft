@@ -3,8 +3,6 @@ project(braft C CXX)
 
 SET(CPACK_GENERATOR "DEB")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "braft authors") #required
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
 
 INCLUDE(CPack)
 
@@ -87,14 +85,10 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 
 include(FindOpenSSL)
-link_directories(${CONAN_LIB_DIRS_ZLIB})
-link_directories(${CONAN_LIB_DIRS_THRIFT})
-link_directories(${CONAN_LIB_DIRS_BRPC})
+link_directories(${ZLIB})
+link_directories(${THRIFT_LIB})
+link_directories(${BRPC_LIB})
 include_directories(
-	${CONAN_INCLUDE_DIRS_PROTOBUF}
-	${CONAN_INCLUDE_DIRS_ZLIB}
-	${CONAN_INCLUDE_DIRS_THRIFT}
-        ${GFLAGS_INCLUDE_PATH}
         ${PROTOBUF_INCLUDE_DIRS}
         ${LEVELDB_INCLUDE_PATH}
         ${BRPC_INCLUDE_PATH}
