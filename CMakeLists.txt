@@ -3,6 +3,8 @@ project(braft C CXX)
 
 SET(CPACK_GENERATOR "DEB")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "braft authors") #required
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
 
 INCLUDE(CPack)
 
@@ -68,6 +70,7 @@ endif()
 
 find_path(BRPC_INCLUDE_PATH NAMES brpc/server.h)
 find_library(BRPC_LIB NAMES libbrpc.a brpc)
+find_library(THRIFT_LIB NAMES libthrift.a thrift)
 if ((NOT BRPC_INCLUDE_PATH) OR (NOT BRPC_LIB))
     message(FATAL_ERROR "Fail to find brpc")
 endif()
@@ -84,8 +87,13 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 
 include(FindOpenSSL)
-
+link_directories(${CONAN_LIB_DIRS_ZLIB})
+link_directories(${CONAN_LIB_DIRS_THRIFT})
+link_directories(${CONAN_LIB_DIRS_BRPC})
 include_directories(
+	${CONAN_INCLUDE_DIRS_PROTOBUF}
+	${CONAN_INCLUDE_DIRS_ZLIB}
+	${CONAN_INCLUDE_DIRS_THRIFT}
         ${GFLAGS_INCLUDE_PATH}
         ${PROTOBUF_INCLUDE_DIRS}
         ${LEVELDB_INCLUDE_PATH}
@@ -96,6 +104,7 @@ include_directories(
 if(BRPC_WITH_GLOG)
     set(DYNAMIC_LIB
         ${BRPC_LIB}
+	${THRIFT_LIB}
         ${GFLAGS_LIB}
         ${GLOG_LIB}
         ${PROTOBUF_LIBRARY}
@@ -109,6 +118,7 @@ if(BRPC_WITH_GLOG)
 else()
     set(DYNAMIC_LIB
         ${BRPC_LIB}
+	${THRIFT_LIB}
         ${GFLAGS_LIB}
         ${PROTOBUF_LIBRARY}
         ${LEVELDB_LIB}
