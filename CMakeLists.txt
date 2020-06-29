@@ -89,6 +89,7 @@ link_directories(${ZLIB})
 link_directories(${THRIFT_LIB})
 link_directories(${BRPC_LIB})
 include_directories(
+        ${GFLAGS_INCLUDE_PATH}
         ${PROTOBUF_INCLUDE_DIRS}
         ${LEVELDB_INCLUDE_PATH}
         ${BRPC_INCLUDE_PATH}
