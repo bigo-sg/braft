@@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 link_directories(${ZLIB})
 link_directories(${THRIFT_LIB})
 link_directories(${BRPC_LIB})
-add_executable(braft_cli braft_cli.cpp)
+#add_executable(braft_cli braft_cli.cpp)
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     #target_link_libraries(braft_cli 
     #                      braft-static
