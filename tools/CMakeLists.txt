@@ -8,15 +8,15 @@ link_directories(${THRIFT_LIB})
 link_directories(${BRPC_LIB})
 add_executable(braft_cli braft_cli.cpp)
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-target_link_libraries(braft_cli 
-                      braft-static
-                      ${DYNAMIC_LIB}
-                      )
+    #target_link_libraries(braft_cli 
+    #                      braft-static
+    #                      ${DYNAMIC_LIB}
+    #                      )
 else()
-target_link_libraries(braft_cli 
-                      "-Xlinker \"-(\""
-                      braft-static
-                      ${DYNAMIC_LIB}
-                      "-Xlinker \"-)\""
-                      )
+    #target_link_libraries(braft_cli 
+    #                      "-Xlinker \"-(\""
+    #                  braft-static
+    #                  ${DYNAMIC_LIB}
+    #                  "-Xlinker \"-)\""
+    #                  )
 endif()
